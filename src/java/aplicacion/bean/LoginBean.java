@@ -7,7 +7,7 @@ package aplicacion.bean;
 
 import aplicacion.dao.IUsuarioDAO;
 import aplicacion.dao.mysql.UsuarioDaoImp;
-import aplicacion.hibernate.mapeos.Usuarios;
+import aplicacion.modelo.dominio.Usuario;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
@@ -19,7 +19,7 @@ import javax.faces.bean.RequestScoped;
 @RequestScoped
 public class LoginBean {
     
-    private Usuarios usuario;
+    private Usuario usuario;
     private IUsuarioDAO usuarioDao; 
 
     /**
@@ -29,7 +29,7 @@ public class LoginBean {
         usuarioDao = new UsuarioDaoImp();
     }
     
-    public Usuarios ValidarUsuario(String nombreUs, String passwUs){
+    public Usuario ValidarUsuario(String nombreUs, String passwUs){
         getUsuarioDao().ValidarUsuario(nombreUs, passwUs);
         return getUsuario();
     }
@@ -37,14 +37,14 @@ public class LoginBean {
     /**
      * @return the usuario
      */
-    public Usuarios getUsuario() {
+    public Usuario getUsuario() {
         return usuario;
     }
 
     /**
      * @param usuario the usuario to set
      */
-    public void setUsuario(Usuarios usuario) {
+    public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
 

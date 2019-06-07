@@ -7,7 +7,7 @@ package aplicacion.dao.mysql;
 
 import aplicacion.dao.IUsuarioDAO;
 import aplicacion.hibernate.configuracion.NewHibernateUtil;
-import aplicacion.hibernate.mapeos.Usuarios;
+import aplicacion.modelo.dominio.Usuario;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
@@ -19,37 +19,37 @@ import org.hibernate.criterion.Restrictions;
 public class UsuarioDaoImp implements IUsuarioDAO{
 
     @Override
-    public Usuarios ValidarUsuario(String nombreUsuario, String password) {
-        Usuarios u = null;
+    public Usuario ValidarUsuario(String nombreUsuario, String password) {
+        Usuario u = null;
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        Criteria criteria = session.createCriteria(Usuarios.class);
+        Criteria criteria = session.createCriteria(Usuario.class);
         criteria.add(Restrictions.like("nombreUsuario", nombreUsuario));
         criteria.add(Restrictions.like("password", password));
-        criteria.add(Restrictions.eq("estado", null));
+        criteria.add(Restrictions.eq("estado", true));
         if(!criteria.list().isEmpty())
-            u = (Usuarios)criteria.list().get(0);
+            u = (Usuario)criteria.list().get(0);
         session.getTransaction().commit();
         session.close();
         return u;
     }
 
     @Override
-    public Usuarios obtenerUsuario(String nombreUsuario) {
-        Usuarios u = null;
-        Session session = NewHibernateUtil.getSessionFactory().openSession();
+    public Usuario obtenerUsuario(String nombreUsuario) {
+        Usuario u = null;
+        Session session = NewHibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-        Criteria criteria = session.createCriteria(Usuarios.class);
+        Criteria criteria = session.createCriteria(Usuario.class);
         criteria.add(Restrictions.like("nombreUser", nombreUsuario));
         if(!criteria.list().isEmpty())
-            u = (Usuarios)criteria.list().get(0);
+            u = (Usuario)criteria.list().get(0);
         session.getTransaction().commit();
         session.close();
         return u;
     }
 
     @Override
-    public void modificar(Usuarios unUsuario) {
+    public void modificar(Usuario unUsuario) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

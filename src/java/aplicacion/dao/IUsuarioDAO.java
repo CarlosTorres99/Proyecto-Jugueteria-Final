@@ -5,7 +5,7 @@
  */
 package aplicacion.dao;
 
-import aplicacion.hibernate.mapeos.Usuarios;
+import aplicacion.modelo.dominio.Usuario;
 
 /**
  *
@@ -13,9 +13,9 @@ import aplicacion.hibernate.mapeos.Usuarios;
  */
 public interface IUsuarioDAO {
     
-    Usuarios ValidarUsuario (String nombreUsuario, String password);
-    Usuarios obtenerUsuario (String nombreUsuario);
+    Usuario ValidarUsuario (String nombreUsuario, String password);
+    Usuario obtenerUsuario (String nombreUsuario);
     
-    void modificar(Usuarios unUsuario);
+    void modificar(Usuario unUsuario);
     
 }

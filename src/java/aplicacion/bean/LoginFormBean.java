@@ -5,7 +5,7 @@
  */
 package aplicacion.bean;
 
-import aplicacion.hibernate.mapeos.Usuarios;
+import aplicacion.modelo.dominio.Usuario;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -32,7 +32,7 @@ public class LoginFormBean {
     
     public String validarUsuario(){
         String resultado = null;
-        Usuarios usuario = getLoginBean().ValidarUsuario(getNombreUs(), getPasswUs());
+        Usuario usuario = getLoginBean().ValidarUsuario(getNombreUs(), getPasswUs());
         if(usuario==null){
             FacesMessage facesmessage = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Credenciales Invalidadas", "Credenciales Invalidadas");
             FacesContext.getCurrentInstance().addMessage(null, facesmessage);

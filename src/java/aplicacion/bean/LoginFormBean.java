@@ -32,14 +32,14 @@ public class LoginFormBean {
     
     public String validarUsuario(){
         String resultado = null;
-        Usuario usuario = getLoginBean().ValidarUsuario(getNombreUs(), getPasswUs());
+        Usuario usuario = loginBean.ValidarUsuario(getNombreUs(), getPasswUs());
         if(usuario==null){
-            FacesMessage facesmessage = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Credenciales Invalidadas", "Credenciales Invalidadas");
-            FacesContext.getCurrentInstance().addMessage(null, facesmessage);
+            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Credenciales Invalidadas", "Credenciales Invalidadas");
+            FacesContext.getCurrentInstance().addMessage(null, facesMessage);
         }
         else{
-            FacesMessage facesmessage = new FacesMessage(FacesMessage.SEVERITY_INFO,"Usuario Valido", "Usuario Valido");
-            FacesContext.getCurrentInstance().addMessage(null, facesmessage);
+            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO,"Usuario Valido", "Usuario Valido");
+            FacesContext.getCurrentInstance().addMessage(null, facesMessage);
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuarioValidado", usuario);
             resultado = "mainPage?faces-redirect=true";
         }

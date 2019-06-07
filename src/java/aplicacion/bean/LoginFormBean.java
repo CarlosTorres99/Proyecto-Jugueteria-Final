@@ -32,7 +32,7 @@ public class LoginFormBean {
     
     public String validarUsuario(){
         String resultado = null;
-        Usuario usuario = loginBean.ValidarUsuario(getNombreUs(), getPasswUs());
+        Usuario usuario = loginBean.ValidarUsuario(nombreUs, passwUs);
         if(usuario==null){
             FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Credenciales Invalidadas", "Credenciales Invalidadas");
             FacesContext.getCurrentInstance().addMessage(null, facesMessage);

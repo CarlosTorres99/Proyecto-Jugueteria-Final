@@ -18,7 +18,6 @@ import javax.faces.bean.RequestScoped;
 @ManagedBean
 @RequestScoped
 public class LoginBean {
-    
     private Usuario usuario;
     private IUsuarioDAO usuarioDao; 
 

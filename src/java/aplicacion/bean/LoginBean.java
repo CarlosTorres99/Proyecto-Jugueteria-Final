@@ -27,9 +27,20 @@ public class LoginBean {
     public LoginBean() {
         usuarioDao = new UsuarioDaoImp();
     }
+
+    public LoginBean(Usuario usuario, IUsuarioDAO usuarioDao) {
+        this.usuario = usuario;
+        this.usuarioDao = usuarioDao;
+    }
+    
     
     public Usuario ValidarUsuario(String nombreUs, String passwUs){
         getUsuarioDao().ValidarUsuario(nombreUs, passwUs);
+        return getUsuario();
+    }
+    
+    public Usuario ObtenerUsuario(String nombreUs){
+        getUsuarioDao().obtenerUsuario(nombreUs);
         return getUsuario();
     }
 

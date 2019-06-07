@@ -29,6 +29,12 @@ public class LoginFormBean {
      */
     public LoginFormBean() {
     }
+
+    public LoginFormBean(LoginBean loginBean, String nombreUs, String passwUs) {
+        this.loginBean = loginBean;
+        this.nombreUs = nombreUs;
+        this.passwUs = passwUs;
+    }
     
     public String validarUsuario(){
         String resultado = null;

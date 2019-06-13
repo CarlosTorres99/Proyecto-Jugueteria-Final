@@ -8,7 +8,12 @@ package aplicacion.dao.mysql;
 import aplicacion.dao.IProductoDAO;
 import aplicacion.hibernate.configuracion.NewHibernateUtil;
 import aplicacion.modelo.dominio.Producto;
+import aplicacion.modelo.dominio.Usuario;
+import java.util.ArrayList;
+import java.util.List;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -45,7 +50,15 @@ public class ProductoDaoImp implements IProductoDAO{
 
     @Override
     public Producto consultar(Integer codProducto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Producto> listado = new ArrayList();
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(Producto.class);
+        criteria.add(Restrictions.like("codProducto", codProducto));
+        listado = criteria.list();
+        session.getTransaction().commit();
+        session.close();        
+        return listado.get(0);
     }
     
 }

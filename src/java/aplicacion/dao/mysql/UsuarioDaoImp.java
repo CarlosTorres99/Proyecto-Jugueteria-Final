@@ -79,7 +79,15 @@ public class UsuarioDaoImp implements IUsuarioDAO{
 
     @Override
     public Usuario consultar(String nombreUsuario) {
-        return null;
+        List<Usuario> listado = new ArrayList();
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(Usuario.class);
+        criteria.add(Restrictions.like("nombreUsuario", nombreUsuario));
+        listado = criteria.list();
+        session.getTransaction().commit();
+        session.close();        
+        return listado.get(0);
     }
 
     @Override

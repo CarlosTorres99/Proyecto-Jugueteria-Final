@@ -24,13 +24,6 @@ public class LoginFormBean {
     private LoginBean loginBean;
     private String nombreUs;
     private String passwUs;
-    String apellido;
-    String nombre;
-    Boolean estado;
-    String tipoUsuario;
-    Cliente unCliente = new Cliente();
-    int cod;
-    int dni;
 
     /**
      * Creates a new instance of LoginFormBean
@@ -55,17 +48,18 @@ public class LoginFormBean {
             FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO,"Usuario Valido", "Usuario Valido");
             FacesContext.getCurrentInstance().addMessage(null, facesMessage);
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuarioValidado", usuario);
-            resultado = "mainPage?faces-redirect=true";
+            if (usuario.getTipoUsuario().equals("Cliente")){
+                resultado="clientes";
+            }
+            else{
+              resultado="administrador";  
+            }
+            //resultado = "mainPage?faces-redirect=true";
         }
         return resultado;
     }
     
     public void agregarUs(){
-        
-        Usuario us = new Usuario();
-        us.setApellidos(apellido);
-        us.setClientes(unCliente);
-        us.setCodigo(cod);
     }
 
     /**

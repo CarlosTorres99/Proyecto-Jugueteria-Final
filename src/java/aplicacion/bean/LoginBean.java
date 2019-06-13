@@ -41,6 +41,10 @@ public class LoginBean {
     /*public Usuario ObtenerUsuario(String nombreUs){
         return getUsuarioDao().obtenerUsuario(nombreUs);
     }*/
+    
+    public void agregarUsuario(Usuario us){
+        usuarioDao.agregar(usuario);
+    }
 
     /**
      * @return the usuario

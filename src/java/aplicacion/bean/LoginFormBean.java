@@ -5,6 +5,7 @@
  */
 package aplicacion.bean;
 
+import aplicacion.modelo.dominio.Cliente;
 import aplicacion.modelo.dominio.Usuario;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -23,6 +24,13 @@ public class LoginFormBean {
     private LoginBean loginBean;
     private String nombreUs;
     private String passwUs;
+    String apellido;
+    String nombre;
+    Boolean estado;
+    String tipoUsuario;
+    Cliente unCliente = new Cliente();
+    int cod;
+    int dni;
 
     /**
      * Creates a new instance of LoginFormBean
@@ -50,6 +58,14 @@ public class LoginFormBean {
             resultado = "mainPage?faces-redirect=true";
         }
         return resultado;
+    }
+    
+    public void agregarUs(){
+        
+        Usuario us = new Usuario();
+        us.setApellidos(apellido);
+        us.setClientes(unCliente);
+        us.setCodigo(cod);
     }
 
     /**

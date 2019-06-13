@@ -8,6 +8,8 @@ package aplicacion.dao.mysql;
 import aplicacion.dao.IUsuarioDAO;
 import aplicacion.hibernate.configuracion.NewHibernateUtil;
 import aplicacion.modelo.dominio.Usuario;
+import java.util.ArrayList;
+import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
@@ -50,7 +52,46 @@ public class UsuarioDaoImp implements IUsuarioDAO{
 
     @Override
     public void modificar(Usuario unUsuario) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.update(unUsuario);
+        session.getTransaction().commit();
+        session.close();
     }
-    
+
+    @Override
+    public void agregar(Usuario unUsuario) {
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.save(unUsuario);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    @Override
+    public void eliminar(Usuario unUsuario) {
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.delete(unUsuario);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    @Override
+    public Usuario consultar(String nombreUsuario) {
+        return null;
+    }
+
+    @Override
+    public List<Usuario> obtenerListaUsuariosActivos() {
+        List<Usuario> listado = new ArrayList();
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(Usuario.class);
+        criteria.add(Restrictions.like("estado", true));
+        listado = criteria.list();
+        session.getTransaction().commit();
+        session.close();
+        return listado;
+    }
 }

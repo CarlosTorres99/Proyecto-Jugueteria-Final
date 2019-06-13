@@ -6,6 +6,7 @@
 package aplicacion.dao;
 
 import aplicacion.modelo.dominio.Usuario;
+import java.util.List;
 
 /**
  *
@@ -15,7 +16,9 @@ public interface IUsuarioDAO {
     
     Usuario ValidarUsuario (String nombreUsuario, String password);
     Usuario obtenerUsuario (String nombreUsuario);
-    
+    void agregar(Usuario unUsuario);
     void modificar(Usuario unUsuario);
-    
+    void eliminar(Usuario unUsuario);
+    Usuario consultar(String nombreUsuario);
+    List<Usuario> obtenerListaUsuariosActivos();
 }

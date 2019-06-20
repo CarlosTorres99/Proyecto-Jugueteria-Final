@@ -12,10 +12,11 @@
                 <p:growl id="mesage" showDetail="false" sticky="false"/>
                 <h:panelGrid columns="2" cellpadding="5">
                     <p:outputLabel for="nombreUsuario" value="Nombre de Usuario: "/>
-                    <p:inputText id="nombreUsuario" required="true" value="#{loginFormBean.nombreUs}"/>
+                    <p:inputText id="nombreUsuario" required="true" value="#{loginFormBean.nombreUs}" placeholder="Ingrese Nombre Usuario" requiredMessage="Debe Ingresar su Nombre de Usuario"/>
                     <p:outputLabel for="passwUsuario" value="Contraseña: "/>
-                    <p:password id="passwUsuario" required="true" value="#{loginFormBean.passwUs}"/>
+                    <p:password id="passwUsuario" required="true" value="#{loginFormBean.passwUs}" placeholder="Ingrese su Contraseña" requiredMessage="Debe Ingresar su contraseña"/>
                     <p:commandButton id="botonValdar" value="Validar Usuario" update="login" action="#{loginFormBean.validarUsuario()}"/>
+                    <p:commandLink value="Crear Nuevo Usuario" process="@this" action="nuevoUsuario"/>
                 </h:panelGrid>
             </h:form>
         </p:panel>

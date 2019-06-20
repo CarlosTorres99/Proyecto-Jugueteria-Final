@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Nuevo Usuario</title>
+    </h:head>
+    <h:body>
+        <h:form id="NewUs">
+            <p:growl id="mensajes"/>
+            <p:panelGrid columns="1">
+            <p:outputLabel for="dni" value="Ingrese DNI"/>
+            <p:inputNumber id="dni" required="true" value="#{usuarioFormBean.dni}" maxlength="8" size="25" maxValue="99999999" minValue="1" decimalPlaces="0" requiredMessage="Debe Ingresar su DNI" placeholder="Ingrese DNI"/>    
+            <p:outputLabel for="nameUs" value="Ingrese nombre de usuario"/>
+            <p:inputText id="nameUs" required="true" value="#{usuarioFormBean.us.nombreUsuario}" maxlength="15" size="25" placeholder="Ingrese Nombre Usuario" requiredMessage="Debe Ingresar un Nombre de Usuario"/>
+            <p:outputLabel for="passwNew" value="Contraseña"/>
+            <p:inputText id="passwNew" required="true" value="#{usuarioFormBean.us.password}" maxlength="15" size="25" placeholder="Ingrese Contraseña" requiredMessage="Debe Ingresar una Contraseña"/>
+            <p:outputLabel for="lastname" value="Ingrese apellidos"/>
+            <p:inputText id="lastname" required="false" value="#{usuarioFormBean.us.apellidos}" maxlength="20" size="25" placeholder="Ingrese Apellidos"/>
+            <p:outputLabel for="name" value="Ingrese nombres"/>
+            <p:inputText id="name" required="false" value="#{usuarioFormBean.us.nombres}" maxlength="20" size="25" placeholder="Ingrese Nombres"/>
+            <p:commandButton id="btnAgregarUs" value="Crear Nuevo Usuario" actionListener="#{usuarioFormBean.agregarUs()}" update="mensajes" icon="ui-icon-disk"/>
+            <p:commandLink value="Loguearse" process="@this" action="login"/>
+            </p:panelGrid>
+        </h:form>
+    </h:body>
+</html>
+

@@ -38,12 +38,8 @@ public class LoginBean {
         return getUsuarioDao().ValidarUsuario(nombreUs, passwUs);
     }
     
-    /*public Usuario ObtenerUsuario(String nombreUs){
+    public Usuario ObtenerUsuario(String nombreUs){
         return getUsuarioDao().obtenerUsuario(nombreUs);
-    }*/
-    
-    public void agregarUsuario(Usuario us){
-        usuarioDao.agregar(usuario);
     }
 
     /**

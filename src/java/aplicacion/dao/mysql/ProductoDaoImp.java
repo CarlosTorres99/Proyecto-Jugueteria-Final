@@ -8,7 +8,6 @@ package aplicacion.dao.mysql;
 import aplicacion.dao.IProductoDAO;
 import aplicacion.hibernate.configuracion.NewHibernateUtil;
 import aplicacion.modelo.dominio.Producto;
-import aplicacion.modelo.dominio.Usuario;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Criteria;
@@ -59,6 +58,19 @@ public class ProductoDaoImp implements IProductoDAO{
         session.getTransaction().commit();
         session.close();        
         return listado.get(0);
+    }
+
+    @Override
+    public List<Producto> obtenerListadoProductos() {
+        List<Producto> listado = new ArrayList();
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(Producto.class);
+        criteria.add(Restrictions.isNotNull("codProducto"));
+        listado = criteria.list();
+        session.getTransaction().commit();
+        session.close();
+        return listado;
     }
     
 }

@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package aplicacion.bean;
+package aplicacion.fomBean;
 
+import aplicacion.bean.LoginBean;
 import aplicacion.modelo.dominio.Cliente;
 import aplicacion.modelo.dominio.Usuario;
 import javax.faces.application.FacesMessage;
@@ -24,6 +25,7 @@ public class LoginFormBean {
     private LoginBean loginBean;
     private String nombreUs;
     private String passwUs;
+    private Usuario usuarioEncontrado;
 
     /**
      * Creates a new instance of LoginFormBean
@@ -48,18 +50,18 @@ public class LoginFormBean {
             FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO,"Usuario Valido", "Usuario Valido");
             FacesContext.getCurrentInstance().addMessage(null, facesMessage);
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuarioValidado", usuario);
-            if (usuario.getTipoUsuario().equals("Cliente")){
-                resultado="clientes";
+            if (usuario.getTipoUsuario().equals("cliente")){
+                resultado="clientes?faces-redirect=true";
             }
             else{
-              resultado="administrador";  
+              resultado="administrador?faces-redirect=true";  
             }
-            //resultado = "mainPage?faces-redirect=true";
         }
         return resultado;
     }
     
-    public void agregarUs(){
+    public void obtenerUsuario(){
+        usuarioEncontrado = loginBean.ObtenerUsuario(nombreUs);
     }
 
     /**
@@ -103,4 +105,13 @@ public class LoginFormBean {
     public void setLoginBean(LoginBean loginBean) {
         this.loginBean = loginBean;
     }
+
+    public Usuario getUsuarioEncontrado() {
+        return usuarioEncontrado;
+    }
+
+    public void setUsuarioEncontrado(Usuario usuarioEncontrado) {
+        this.usuarioEncontrado = usuarioEncontrado;
+    }
+
 }

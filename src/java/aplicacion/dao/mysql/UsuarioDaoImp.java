@@ -42,7 +42,7 @@ public class UsuarioDaoImp implements IUsuarioDAO{
         Session session = NewHibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         Criteria criteria = session.createCriteria(Usuario.class);
-        criteria.add(Restrictions.like("nombreUser", nombreUsuario));
+        criteria.add(Restrictions.like("nombreUsuario", nombreUsuario));
         if(!criteria.list().isEmpty())
             u = (Usuario)criteria.list().get(0);
         session.getTransaction().commit();

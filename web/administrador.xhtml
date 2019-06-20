@@ -1,12 +1,80 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Jugueteria/Administracion</title>
     </h:head>
     <h:body>
-        Hello from Facelets
+        <h:form id="InfAdmin">
+            <p:panelGrid columns="2">
+                <p:outputLabel value="Nombre de Usuario:"/>
+                <p:outputLabel value="#{loginFormBean.usuarioEncontrado.nombreUsuario}"/>
+            </p:panelGrid>
+            <p:commandButton id="MuestraUsuarios" value="Mostrar Listado De Usuarios" actionListener="#{usuarioFormBean.obtenerListaUsuariosActivos()}" update=":frmUsuarios"/>
+        </h:form>
+        <h:form id="frmUsuarios">
+            <p:dataTable id="dlUsuarios" value="#{usuarioFormBean.listadoUsuarios}" var="u" emptyMessage="Presione el Boton Para ver los Usuarios">
+                <p:column headerText="Código">
+                    <p:outputLabel value="#{u.codigo}"/>
+                </p:column>
+                <p:column headerText="Nombre de Usuario">
+                    <p:outputLabel value="#{u.nombreUsuario}"/>
+                </p:column>
+                <p:column headerText="Contraseña">
+                    <p:outputLabel value="#{u.password}"/>
+                </p:column>
+                <p:column headerText="Nombres">
+                    <p:outputLabel value="#{u.nombres}"/>
+                </p:column>
+                <p:column headerText="Apellidos">
+                    <p:outputLabel value="#{u.apellidos}"/>
+                </p:column>
+                <p:column headerText="Acciones">
+                    <p:commandButton id="btnEliminar" value="Eliminar" oncomplete="PF('eliminarUsuario').show()" actionListener="#{usuarioFormBean.establecerUsuario(u)}" update="dlgDelUsuario"/>
+                    <p:commandButton id="btnModificar" value="Modificar"/>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+        <p:dialog id="dlgDelUsuario" header="Eliminacion de Usuario" widgetVar="eliminarUsuario"
+                          resizable="false"
+                          showEffect="explode" hideEffect="explode"
+                          modal="true">
+                    <p:growl id="mensajeDelUsuario" showDetail="false" showSummary="true" sticky="false" />
+                    <h:form id="frmDelUsuario">
+                        <p:panelGrid id="tblDelLibros" columns="2" >
+                            <p:outputLabel for="txtNombreUsuario" value="Nombre Usuario" />
+                            <p:outputLabel id="txtNombreUsuario"
+                                           value="#{usuarioFormBean.unUsuario.nombreUsuario}"/>
+                            <p:outputLabel for="txtContraseña" value="Contraseña" />
+                            <p:outputLabel id="txtContraseña" 
+                                           value="#{usuarioFormBean.unUsuario.password}"/>    
+                            <p:commandButton id="btnDeleteUsuario" value="Eliminar"
+                                             actionListener="#{usuarioFormBean.eliminarUs()}" 
+                                             update=":frmUsuarios" 
+                                             oncomplete="PF('eliminarUsuario').hide()" >
+                                    <p:confirm header="Pedido de Confirmacion"
+                                               message="¿Confirma eliminación de Usuario?"
+                                               icon="ui-icon-alert"/>
+                            </p:commandButton>
+                            <p:commandButton id="btnCerrarDeUsuario"
+                                             value="Cancelar"
+                                             oncomplete="PF('eliminarUsuario').hide()" />
+                        </p:panelGrid>
+                    </h:form>
+                </p:dialog>
+        <p:confirmDialog id="confirmacionDialogUsuario"
+                                 global="true" showEffect="fade"
+                                 hideEffect="fade">
+                    <h:form id="frmConfirmacionOperacionUsuario">
+                        <p:commandButton value="Si" type="button"
+                                         styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                        <p:commandButton value="No" type="button"
+                                         styleClass="ui-confirmdialog-no" icon="ui-icon-close"
+                                         style="float: right;" />
+                    </h:form>
+                </p:confirmDialog>
     </h:body>
 </html>
 

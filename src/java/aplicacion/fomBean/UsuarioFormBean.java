@@ -16,7 +16,7 @@ import java.util.Random;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 /**
@@ -24,7 +24,7 @@ import javax.faces.context.FacesContext;
  * @author Gaston
  */
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class UsuarioFormBean {
     @ManagedProperty(value = "#{usuarioBean}")    
     private UsuarioBean usuarioBean;
@@ -54,8 +54,8 @@ public class UsuarioFormBean {
         this.unUsuario = unUsuario;
     }
     
-    public void agregarUs(){
-        
+    public String agregarUs(){
+        String resultado=null;
         try{
         cod = 1 + numero.nextInt(1000);
         us.setClientes(new Cliente(dni));
@@ -63,12 +63,14 @@ public class UsuarioFormBean {
         us.setCodigo(cod);
         us.setTipoUsuario("cliente");
         usuarioBean.agregarUs(us);
+        resultado = "login?faces-redirect=true";
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Usuario Creado"));
-            
         }
         catch (Exception e){
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Fallo al Crear Usuario"));    
-        }    
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Fallo al Crear Usuario"));
+        }
+        us = new Usuario();
+        return resultado;
     }
     
     public List obtenerListaUsuariosActivos(){
@@ -79,6 +81,14 @@ public class UsuarioFormBean {
         usuarioBean.elminarUs(unUsuario);
         FacesMessage msg = new FacesMessage("Usuario Eliminado");
         FacesContext.getCurrentInstance().addMessage(null, msg);
+        unUsuario = new Usuario();
+    }
+    
+    public void modificarUs(){
+        usuarioBean.modificarUs(unUsuario);
+        FacesMessage msg = new FacesMessage("Usuario Modificado");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        unUsuario = new Usuario();
     }
     
     public void establecerUsuario(Usuario otroUsuario){

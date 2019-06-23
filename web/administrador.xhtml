@@ -8,14 +8,15 @@
     </h:head>
     <h:body>
         <h:form id="InfAdmin">
-            <p:panelGrid columns="2">
+            <p:panelGrid columns="4">
                 <p:outputLabel value="Nombre de Usuario:"/>
-                <p:outputLabel value="#{loginFormBean.usuarioEncontrado.nombreUsuario}"/>
-            </p:panelGrid>
-            <p:commandButton id="MuestraUsuarios" value="Mostrar Listado De Usuarios" actionListener="#{usuarioFormBean.obtenerListaUsuariosActivos()}" update=":frmUsuarios"/>
+                <p:outputLabel value="#{loginFormBean.obtenerUsuario()}"/>
+                <p:commandButton id="btnCrearUsuario" value="Agregar Nuevo Usuario" oncomplete="PF('agregarUsuario').show()" update="dlgCrearUsuario"/>
+                <p:commandLink id="btnCerrarSesion" value="Cerrar Sesion" process="@this" action="login"/>
+            </p:panelGrid>            
         </h:form>
         <h:form id="frmUsuarios">
-            <p:dataTable id="dlUsuarios" value="#{usuarioFormBean.listadoUsuarios}" var="u" emptyMessage="Presione el Boton Para ver los Usuarios">
+            <p:dataTable id="dlUsuarios" value="#{usuarioFormBean.obtenerListaUsuariosActivos()}" var="u">
                 <p:column headerText="Código">
                     <p:outputLabel value="#{u.codigo}"/>
                 </p:column>
@@ -31,9 +32,12 @@
                 <p:column headerText="Apellidos">
                     <p:outputLabel value="#{u.apellidos}"/>
                 </p:column>
+                <p:column headerText="Tipo Usuario">
+                    <p:outputLabel value="#{u.tipoUsuario}"/>
+                </p:column>
                 <p:column headerText="Acciones">
                     <p:commandButton id="btnEliminar" value="Eliminar" oncomplete="PF('eliminarUsuario').show()" actionListener="#{usuarioFormBean.establecerUsuario(u)}" update="dlgDelUsuario"/>
-                    <p:commandButton id="btnModificar" value="Modificar"/>
+                    <p:commandButton id="btnModificar" value="Modificar" oncomplete="PF('modificarUsuario').show()" actionListener="#{usuarioFormBean.establecerUsuario(u)}" update="dlgModUsuario"/>
                 </p:column>
             </p:dataTable>
         </h:form>
@@ -58,9 +62,81 @@
                                                message="¿Confirma eliminación de Usuario?"
                                                icon="ui-icon-alert"/>
                             </p:commandButton>
-                            <p:commandButton id="btnCerrarDeUsuario"
+                            <p:commandButton id="btnCerrarDelUsuario"
                                              value="Cancelar"
                                              oncomplete="PF('eliminarUsuario').hide()" />
+                        </p:panelGrid>
+                    </h:form>
+                </p:dialog>
+        <p:dialog id="dlgModUsuario" header="Modificación de Usuario" widgetVar="modificarUsuario"
+                          resizable="false"
+                          showEffect="explode" hideEffect="explode"
+                          modal="true">
+                    <p:growl id="mensajeModUsuario" showDetail="false" showSummary="true" sticky="false" />
+                    <h:form id="frmModUsuario">
+                        <p:panelGrid id="tblModUsuario" columns="2" >
+                            <p:outputLabel for="txtNombreUsuario" value="Nombre Usuario" />
+                            <p:inputText id="txtNombreUsuario"
+                                         value="#{usuarioFormBean.unUsuario.nombreUsuario}"
+                                         required="true"/>
+                            <p:outputLabel for="txtPassword" value="Contraseña:" />
+                            <p:inputText id="txtPassword" 
+                                         value="#{usuarioFormBean.unUsuario.password}"
+                                         required="true"/>
+                            <p:outputLabel for="txtTipoUsuario" value="Tipo de Usuario:" />
+                            <p:inputText id="txtTipoUsuario" value="#{usuarioFormBean.unUsuario.tipoUsuario}" required="true"/>
+                            <p:outputLabel for="txtNombres" value="Nombres:" />
+                            <p:inputText id="txtNombres" value="#{usuarioFormBean.unUsuario.nombres}" required="true"/>               
+                            <p:outputLabel for="txtApellidos" value="Apellidos:" />
+                            <p:inputText id="txtApellidos" value="#{usuarioFormBean.unUsuario.apellidos}" required="true"/>
+                            <p:commandButton id="btnModificarUsuario" value="Modificar"
+                                             actionListener="#{usuarioFormBean.modificarUs()}" 
+                                             update=":frmUsuarios" 
+                                             oncomplete="PF('modificarUsuario').hide()" >
+                                    <p:confirm header="Pedido de Confirmacion"
+                                               message="¿Confirma Modificación de Libro?"
+                                               icon="ui-icon-alert"/>
+                            </p:commandButton>                            
+                            <p:commandButton id="btnCerrarModUsuario"
+                                             value="Salir"
+                                             oncomplete="PF('modificarUsuario').hide()" />
+                        </p:panelGrid>
+                    </h:form>
+                </p:dialog>
+        <p:dialog id="dlgCrearUsuario" header="Alta Usuario" widgetVar="agregarUsuario"
+                          resizable="false"
+                          showEffect="explode" hideEffect="explode"
+                          modal="true">
+                    <p:growl id="mensajeAltaUsuario" showDetail="false" showSummary="true" sticky="false" />
+                    <h:form id="frmAltaUsuario">
+                        <p:panelGrid id="tblAltaUsuario" columns="2" >
+                            <p:outputLabel for="txtNombreUsuario" value="Nombre Usuario" />
+                            <p:inputText id="txtNombreUsuario"
+                                         value="#{usuarioFormBean.us.nombreUsuario}"
+                                         required="true" placeholder="Ingrese Nombre de Usuario" size="30"/>
+                            <p:outputLabel for="txtPassword" value="Contraseña:"/>
+                            <p:inputText id="txtPassword" 
+                                         value="#{usuarioFormBean.us.password}"
+                                         required="true" placeholder="Ingrese Contraseña" size="30"/>
+                            <p:outputLabel for="txtTipoUsuario" value="Tipo de Usuario:" />
+                            <p:inputText id="txtTipoUsuario" value="#{usuarioFormBean.us.tipoUsuario}" required="true" placeholder="(cliente/administrador)" size="30"/>
+                            <p:outputLabel for="txtNombres" value="Nombres:" />
+                            <p:inputText id="txtNombres" value="#{usuarioFormBean.us.nombres}" required="false" placeholder="Ingrese Nombres" size="30"/>               
+                            <p:outputLabel for="txtApellidos" value="Apellidos:" />
+                            <p:inputText id="txtApellidos" value="#{usuarioFormBean.us.apellidos}" required="false" placeholder="Ingrese Apellidos" size="30"/>
+                            <p:outputLabel for="txtDni" value="Dni:"/>
+                            <p:inputNumber id="txtDni" required="true" value="#{usuarioFormBean.dni}" maxlength="8" size="25" maxValue="99999999" minValue="1" decimalPlaces="0" requiredMessage="Debe Ingresar su DNI" placeholder="Ingrese DNI"/>
+                            <p:commandButton id="btnAgregarUsuario" value="Agregar"
+                                             actionListener="#{usuarioFormBean.agregarUs()}" 
+                                             update=":frmUsuarios" 
+                                             oncomplete="PF('agregarUsuario').hide()" >
+                                    <p:confirm header="Pedido de Confirmacion"
+                                               message="¿Confirma Agregar Usuario?"
+                                               icon="ui-icon-alert"/>
+                            </p:commandButton>
+                            <p:commandButton id="btnCerrarAltaUsuario"
+                                             value="Salir"
+                                             oncomplete="PF('agregarUsuario').hide()" />
                         </p:panelGrid>
                     </h:form>
                 </p:dialog>

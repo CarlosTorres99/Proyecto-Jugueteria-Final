@@ -31,6 +31,7 @@ public class LoginFormBean {
      * Creates a new instance of LoginFormBean
      */
     public LoginFormBean() {
+        usuarioEncontrado = new Usuario();
     }
 
     public LoginFormBean(LoginBean loginBean, String nombreUs, String passwUs) {
@@ -60,8 +61,9 @@ public class LoginFormBean {
         return resultado;
     }
     
-    public void obtenerUsuario(){
-        usuarioEncontrado = loginBean.ObtenerUsuario(nombreUs);
+    public String obtenerUsuario(){
+        setUsuarioEncontrado((Usuario)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioValidado"));
+        return getUsuarioEncontrado().getNombreUsuario();
     }
 
     /**

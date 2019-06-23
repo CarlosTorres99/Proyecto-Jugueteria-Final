@@ -42,10 +42,11 @@ public class ProductoFormBean {
     }
     
     
-    public void agregarUs(){
+    public void agregarProducto(){
         try{
         cod = 1 + numero.nextInt(1000);
         prod.setCodProducto(cod);
+        
         productoBean.agregarProd(prod);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Usuario Creado"));    
         }

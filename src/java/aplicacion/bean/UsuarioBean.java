@@ -10,14 +10,16 @@ import aplicacion.dao.mysql.UsuarioDaoImp;
 import aplicacion.modelo.dominio.Usuario;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
+
+
 
 /**
  *
  * @author Gaston
  */
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class UsuarioBean {
     private IUsuarioDAO usuarioDao; 
     

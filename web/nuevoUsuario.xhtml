@@ -20,8 +20,7 @@
             <p:inputText id="lastname" required="false" value="#{usuarioFormBean.us.apellidos}" maxlength="20" size="25" placeholder="Ingrese Apellidos"/>
             <p:outputLabel for="name" value="Ingrese nombres"/>
             <p:inputText id="name" required="false" value="#{usuarioFormBean.us.nombres}" maxlength="20" size="25" placeholder="Ingrese Nombres"/>
-            <p:commandButton id="btnAgregarUs" value="Crear Nuevo Usuario" actionListener="#{usuarioFormBean.agregarUs()}" update="mensajes" icon="ui-icon-disk"/>
-            <p:commandLink value="Loguearse" process="@this" action="login"/>
+            <p:commandButton id="btnAgregarUs" value="Crear Nuevo Usuario" action="#{usuarioFormBean.agregarUs()}" update="mensajes" icon="ui-icon-disk"/>
             </p:panelGrid>
         </h:form>
     </h:body>

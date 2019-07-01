@@ -8,9 +8,10 @@ package aplicacion.bean;
 import aplicacion.dao.IUsuarioDAO;
 import aplicacion.dao.mysql.UsuarioDaoImp;
 import aplicacion.modelo.dominio.Usuario;
+import java.io.Serializable;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 
 
 
@@ -19,8 +20,8 @@ import javax.faces.bean.ViewScoped;
  * @author Gaston
  */
 @ManagedBean
-@ViewScoped
-public class UsuarioBean {
+@SessionScoped
+public class UsuarioBean implements Serializable{
     private IUsuarioDAO usuarioDao; 
     
     /**

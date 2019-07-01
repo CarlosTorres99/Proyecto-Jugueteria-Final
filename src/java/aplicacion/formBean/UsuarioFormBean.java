@@ -3,20 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package aplicacion.fomBean;
+package aplicacion.formBean;
 
 import aplicacion.bean.UsuarioBean;
 import aplicacion.dao.IUsuarioDAO;
 import aplicacion.dao.mysql.UsuarioDaoImp;
 import aplicacion.modelo.dominio.Cliente;
 import aplicacion.modelo.dominio.Usuario;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 /**
@@ -24,8 +25,8 @@ import javax.faces.context.FacesContext;
  * @author Gaston
  */
 @ManagedBean
-@ViewScoped
-public class UsuarioFormBean {
+@SessionScoped
+public class UsuarioFormBean implements Serializable{
     @ManagedProperty(value = "#{usuarioBean}")    
     private UsuarioBean usuarioBean;
     private Usuario us;
@@ -73,7 +74,7 @@ public class UsuarioFormBean {
         return resultado;
     }
     
-    public List obtenerListaUsuariosActivos(){
+    public List<Usuario> obtenerListaUsuariosActivos(){
         return listadoUsuarios = usuarioBean.obtenerListado();
     }
     

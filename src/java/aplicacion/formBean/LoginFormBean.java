@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package aplicacion.fomBean;
+package aplicacion.formBean;
 
 import aplicacion.bean.LoginBean;
 import aplicacion.modelo.dominio.Cliente;
 import aplicacion.modelo.dominio.Usuario;
+import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -20,7 +21,7 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean
 @RequestScoped
-public class LoginFormBean {
+public class LoginFormBean implements Serializable{
     @ManagedProperty(value = "#{loginBean}")
     private LoginBean loginBean;
     private String nombreUs;

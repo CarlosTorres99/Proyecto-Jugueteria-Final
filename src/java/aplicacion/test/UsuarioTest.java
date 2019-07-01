@@ -5,10 +5,16 @@
  */
 package aplicacion.test;
 
+import aplicacion.dao.ICategoriaDAO;
+import aplicacion.dao.IProductoDAO;
 import aplicacion.dao.IUsuarioDAO;
+import aplicacion.dao.mysql.CategoriaDaoImp;
+import aplicacion.dao.mysql.ProductoDaoImp;
 import aplicacion.dao.mysql.UsuarioDaoImp;
 import aplicacion.hibernate.configuracion.NewHibernateUtil;
+import aplicacion.modelo.dominio.Categoria;
 import aplicacion.modelo.dominio.Cliente;
+import aplicacion.modelo.dominio.Producto;
 import aplicacion.modelo.dominio.Usuario;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,23 +27,21 @@ import org.hibernate.Session;
  */
 public class UsuarioTest {
     public static void main(String[] gaston) {
-        Usuario us = new Usuario();
-        IUsuarioDAO usuarioDao = new UsuarioDaoImp();
-        List<Usuario> listado = new ArrayList();
+        /*int num = 1;
+        Categoria prod = new Categoria();
+        IProductoDAO productoDao = new ProductoDaoImp();
+        List<Producto> listado = new ArrayList();
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        Criteria criteria = session.createCriteria(Usuario.class);
+        Criteria criteria = session.createCriteria(Producto.class);
         listado = criteria.list();
         session.getTransaction().commit();
         session.close();
         
         for(int i=0;i<listado.size();i++){
-            if(listado.get(i).getCodigo()==2){
-                us = listado.get(i);
-            }
+            System.out.println(+listado.get(i).getPrecio());
         }
-        us.setTipoUsuario("admin");
-        usuarioDao.modificar(us);
+        //categoriaDao.eliminar(cat);
         /*us.setApellidos("Choque");
         us.setCodigo(1321);
         us.setEstado(true);
@@ -46,5 +50,18 @@ public class UsuarioTest {
         //us.getClientes().setDni(234);
         IUsuarioDAO usuarioDao = new UsuarioDaoImp();
         usuarioDao.agregar(us);*/
+        List<Categoria> listado = new ArrayList();
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(Categoria.class);
+        listado = criteria.list();
+        session.getTransaction().commit();
+        session.close();
+        
+        Producto prod= new Producto();
+        prod.setCategorias(listado.get(0));
+        prod.setDescripcion("prueba");
+        IProductoDAO productoDao = new ProductoDaoImp();
+        productoDao.agregar(prod);
     }
 }

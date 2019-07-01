@@ -8,17 +8,18 @@ package aplicacion.bean;
 import aplicacion.dao.IProductoDAO;
 import aplicacion.dao.mysql.ProductoDaoImp;
 import aplicacion.modelo.dominio.Producto;
+import java.io.Serializable;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 
 /**
  *
  * @author Gaston
  */
 @ManagedBean
-@RequestScoped
-public class ProductoBean {
+@SessionScoped
+public class ProductoBean implements Serializable{
     private IProductoDAO productoDao;
 
     /**
@@ -29,19 +30,20 @@ public class ProductoBean {
     }
     
     public void agregarProd(Producto prod){
-        productoDao.agregar(prod);
+        System.out.println("Estoy en el productoBean");
+        getProductoDao().agregar(prod);
     }
     public void elminarProd(Producto prod){
-        productoDao.eliminar(prod);
+        getProductoDao().eliminar(prod);
     }
     public void modificarUs(Producto prod){
-        productoDao.modificar(prod);
+        getProductoDao().modificar(prod);
     }
     public void consultar(Integer codProd){
-        productoDao.consultar(codProd);
+        getProductoDao().consultar(codProd);
     }
     public List<Producto> obtenerListado(){
-        return productoDao.obtenerListadoProductos();
+        return getProductoDao().obtenerListadoProductos();
     }
 
     public IProductoDAO getProductoDao() {

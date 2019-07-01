@@ -2,16 +2,19 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Jugueteria/Administracion</title>
     </h:head>
     <h:body>
+        <p:growl id="mes" />
         <h:form id="InfAdmin">
-            <p:panelGrid columns="4">
+            <p:panelGrid columns="5">
                 <p:outputLabel value="Nombre de Usuario:"/>
                 <p:outputLabel value="#{loginFormBean.obtenerUsuario()}"/>
                 <p:commandButton id="btnCrearUsuario" value="Agregar Nuevo Usuario" oncomplete="PF('agregarUsuario').show()" update="dlgCrearUsuario"/>
+                <p:commandButton id="btnCrearProducto" value="Agregar Nuevo Producto" oncomplete="PF('agregarProducto').show()" update="dlgCrearProducto"/>
                 <p:commandLink id="btnCerrarSesion" value="Cerrar Sesion" process="@this" action="login"/>
             </p:panelGrid>            
         </h:form>
@@ -34,6 +37,29 @@
                 </p:column>
                 <p:column headerText="Tipo Usuario">
                     <p:outputLabel value="#{u.tipoUsuario}"/>
+                </p:column>
+                <p:column headerText="Acciones">
+                    <p:commandButton id="btnEliminar" value="Eliminar" oncomplete="PF('eliminarUsuario').show()" actionListener="#{usuarioFormBean.establecerUsuario(u)}" update="dlgDelUsuario"/>
+                    <p:commandButton id="btnModificar" value="Modificar" oncomplete="PF('modificarUsuario').show()" actionListener="#{usuarioFormBean.establecerUsuario(u)}" update="dlgModUsuario"/>
+                </p:column>
+            </p:dataTable>
+            </h:form>
+            <h:form id="frmProductos">
+                <p:dataTable id="dlProductos" value="#{productoFormBean.obtenerListaProductos()}" var="p">
+                <p:column headerText="Código">
+                    <p:outputLabel value="#{p.codProducto}"/>
+                </p:column>
+                <p:column headerText="Descripción">
+                    <p:outputLabel value="#{p.descripcion}"/>
+                </p:column>
+                <p:column headerText="Precio">
+                    <p:outputLabel value="#{p.precio}"/>
+                </p:column>
+                <p:column headerText="Stock">
+                    <p:outputLabel value="#{p.stock}"/>
+                </p:column>
+                <p:column headerText="Id Categoria">
+                    <p:outputLabel value="#{p.categorias.idcategoria}"/>
                 </p:column>
                 <p:column headerText="Acciones">
                     <p:commandButton id="btnEliminar" value="Eliminar" oncomplete="PF('eliminarUsuario').show()" actionListener="#{usuarioFormBean.establecerUsuario(u)}" update="dlgDelUsuario"/>
@@ -137,6 +163,42 @@
                             <p:commandButton id="btnCerrarAltaUsuario"
                                              value="Salir"
                                              oncomplete="PF('agregarUsuario').hide()" />
+                        </p:panelGrid>
+                    </h:form>
+                </p:dialog>
+        <p:dialog id="dlgCrearProducto" header="Alta Producto" widgetVar="agregarProducto"
+                          resizable="false"
+                          showEffect="explode" hideEffect="explode"
+                          modal="true">
+                    <p:growl id="mensajeAltaProducto" showDetail="false" showSummary="true" sticky="false" />
+                    <h:form id="frmAltaProducto">
+                        <p:panelGrid id="tblAltaProducto" columns="2" >
+                            <p:outputLabel for="txtDescProducto" value="Descripción de Producto: " />
+                            <p:inputText id="txtDescProducto"
+                                         value="#{productoFormBean.prod.descripcion}"
+                                         required="true" placeholder="Ingrese Descripción del Producto" size="30"/>
+                            <p:outputLabel for="txtPrecio" value="Precio: "/>
+                            <p:inputNumber id="txtPrecio" 
+                                         value="#{productoFormBean.prod.precio}"
+                                         required="true" placeholder="Ingrese el Precio" size="30" minValue="1" decimalPlaces="2"/>
+                            <p:outputLabel for="txtStock" value="Stock: " />
+                            <p:inputNumber id="txtStock" value="#{productoFormBean.prod.stock}" required="true" placeholder="Cantidad de Productos" size="30" minValue="1" decimalPlaces="0"/>
+                            <p:outputLabel id="txtIdCat" value="Categoria" />
+                            <p:selectOneMenu id="SOMCategoria" value="#{productoFormBean.prod.categorias}" converter="omnifaces.SelectItemsConverter">
+                                <f:selectItem itemLabel="Seleccione Categoria" itemValue="#{null}" noSelectionOption="true"/>
+                                <f:selectItems value="#{productoFormBean.obtenerCategorias()}" var="c" itemLabel="#{c.nombre}" itemValue="#{c}"/>
+                            </p:selectOneMenu>
+                            <p:commandButton id="btnAgregarProducto" value="Agregar"
+                                             actionListener="#{productoFormBean.agregarProducto()}" 
+                                             update=":frmProductos :mes" 
+                                             oncomplete="PF('agregarProducto').hide()" >
+                                    <p:confirm header="Pedido de Confirmacion"
+                                               message="¿Confirma Agregar Producto?"
+                                               icon="ui-icon-alert"/>
+                            </p:commandButton>
+                            <p:commandButton id="btnCerrarAltaProducto"
+                                             value="Salir"
+                                             oncomplete="PF('agregarProducto').hide()" />
                         </p:panelGrid>
                     </h:form>
                 </p:dialog>

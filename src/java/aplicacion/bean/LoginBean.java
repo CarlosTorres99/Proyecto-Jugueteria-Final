@@ -8,6 +8,7 @@ package aplicacion.bean;
 import aplicacion.dao.IUsuarioDAO;
 import aplicacion.dao.mysql.UsuarioDaoImp;
 import aplicacion.modelo.dominio.Usuario;
+import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
@@ -17,7 +18,7 @@ import javax.faces.bean.RequestScoped;
  */
 @ManagedBean
 @RequestScoped
-public class LoginBean {
+public class LoginBean implements Serializable{
     private Usuario usuario;
     private IUsuarioDAO usuarioDao; 
 

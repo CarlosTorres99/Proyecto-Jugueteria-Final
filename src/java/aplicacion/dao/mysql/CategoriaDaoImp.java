@@ -5,68 +5,53 @@
  */
 package aplicacion.dao.mysql;
 
-import aplicacion.dao.IProductoDAO;
+import aplicacion.dao.ICategoriaDAO;
 import aplicacion.hibernate.configuracion.NewHibernateUtil;
-import aplicacion.modelo.dominio.Producto;
+import aplicacion.modelo.dominio.Categoria;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.criterion.Restrictions;
 
 /**
  *
  * @author Gaston
  */
-public class ProductoDaoImp implements IProductoDAO{
+public class CategoriaDaoImp implements ICategoriaDAO{
 
     @Override
-    public void agregar(Producto unProducto) {
-        System.out.println("Estoy en la implementacion");
+    public void agregar(Categoria unaCategoria) {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        session.save(unProducto);
+        session.save(unaCategoria);
         session.getTransaction().commit();
         session.close();
     }
 
     @Override
-    public void eliminar(Producto unProducto) {
+    public void modificar(Categoria unaCategoria) {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        session.delete(unProducto);
+        session.update(unaCategoria);
         session.getTransaction().commit();
         session.close();
     }
 
     @Override
-    public void modificar(Producto unProducto) {
+    public void eliminar(Categoria unaCategoria) {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        session.update(unProducto);
+        session.delete(unaCategoria);
         session.getTransaction().commit();
         session.close();
     }
 
     @Override
-    public Producto consultar(Integer codProducto) {
-        List<Producto> listado = new ArrayList();
+    public List<Categoria> obtenerCategoria() {
+        List<Categoria> listado = new ArrayList();
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        Criteria criteria = session.createCriteria(Producto.class);
-        criteria.add(Restrictions.like("codProducto", codProducto));
-        listado = criteria.list();
-        session.getTransaction().commit();
-        session.close();        
-        return listado.get(0);
-    }
-
-    @Override
-    public List<Producto> obtenerListadoProductos() {
-        List<Producto> listado = new ArrayList();
-        Session session = NewHibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        Criteria criteria = session.createCriteria(Producto.class);
+        Criteria criteria = session.createCriteria(Categoria.class);
         listado = criteria.list();
         session.getTransaction().commit();
         session.close();

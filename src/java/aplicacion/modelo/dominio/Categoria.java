@@ -11,7 +11,7 @@ import java.util.Set;
 public class Categoria  implements java.io.Serializable {
 
 
-     private int idcategoria;
+     private Integer idcategoria;
      private String nombre;
      private String descripcion;
      private Set productoses = new HashSet(0);
@@ -58,10 +58,18 @@ public class Categoria  implements java.io.Serializable {
     public void setProductoses(Set productoses) {
         this.productoses = productoses;
     }
-
-
-
-
+    @Override
+    public boolean equals(Object other){
+        return (other instanceof Categoria) && (idcategoria != null)? idcategoria.equals(((Categoria)other).idcategoria):(other == this);
+    }
+    @Override
+    public int hashCode(){
+        return (idcategoria != null)? (this.getClass().hashCode() + idcategoria.hashCode()):super.hashCode();
+    }
+    @Override
+    public String toString(){
+        return String.format("Categoria: [%s,%s]", descripcion, nombre);
+    }
 }
 
 

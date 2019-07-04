@@ -19,7 +19,7 @@
     <property name="stock" type="java.lang.Integer">
       <column name="stock"/>
     </property>
-    <set fetch="select" inverse="true" lazy="true" name="detalles" table="detalle">
+    <set fetch="join" cascade="all" inverse="true" lazy="true" name="detalles" table="detalle">
       <key>
         <column name="productos_codProducto" not-null="true"/>
       </key>

@@ -56,26 +56,31 @@ public class Producto  implements java.io.Serializable {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-    public Double getPrecio() {
-        return this.precio;
-    }
+
     
-    public void setPrecio(Double precio) {
-        this.precio = precio;
-    }
-    public Integer getStock() {
-        return this.stock;
-    }
     
-    public void setStock(Integer stock) {
-        this.stock = stock;
-    }
     public Set getDetalles() {
         return this.detalles;
     }
     
     public void setDetalles(Set detalles) {
         this.detalles = detalles;
+    }
+
+    public Double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(Double precio) {
+        this.precio = precio;
+    }
+
+    public Integer getStock() {
+        return stock;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
     }
 
 

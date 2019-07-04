@@ -21,13 +21,13 @@ import org.hibernate.criterion.Restrictions;
 public class ProductoDaoImp implements IProductoDAO{
 
     @Override
-    public void agregar(Producto unProducto) {
-        System.out.println("Estoy en la implementacion");
-        Session session = NewHibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
+    public void agregar(Producto unProducto) {        
+        Session session = NewHibernateUtil.getSessionFactory().openSession();        
+        session.beginTransaction();        
         session.save(unProducto);
         session.getTransaction().commit();
         session.close();
+        
     }
 
     @Override
@@ -35,6 +35,7 @@ public class ProductoDaoImp implements IProductoDAO{
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         session.delete(unProducto);
+        System.out.println("Eliminado jajaja");
         session.getTransaction().commit();
         session.close();
     }

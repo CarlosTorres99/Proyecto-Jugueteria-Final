@@ -36,6 +36,7 @@ public class ProductoFormBean implements Serializable{
     private Categoria cat;
     private List<Categoria> categorias;
     private List<Producto>listadoProductos;
+    private Producto unProducto;
 
     /**
      * Creates a new instance of ProductoFormBean
@@ -48,9 +49,13 @@ public class ProductoFormBean implements Serializable{
     
     public void agregarProducto(){
         try{
-            System.out.println("Estoy en el productoFormBean");
-        cod = 1 + numero.nextInt(1000);
-        prod.setCodProducto(cod);
+            /*for (int i=0;i<=obtenerListaProductos().size();i++){
+                if(i==obtenerListaProductos().size()){
+                    cod = (obtenerListaProductos().get(i).getCodProducto())+1;
+                }
+            }
+            
+        prod.setCodProducto(cod);*/
         productoBean.agregarProd(prod);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Producto Creado"));    
         }
@@ -65,6 +70,26 @@ public class ProductoFormBean implements Serializable{
     public List<Categoria> obtenerCategorias(){
         return getCategoriaBean().obtenerListado();
     }
+    
+    public void eliminarProd(){
+        System.out.println("Eliminando");
+        productoBean.elminarProd(unProducto);
+        FacesMessage msg = new FacesMessage("Producto Eliminado");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        unProducto = new Producto();
+    }
+    
+    public void modificarProd(){
+        productoBean.modificarProd(unProducto);
+        FacesMessage msg = new FacesMessage("Producto Modificado");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        unProducto = new Producto();
+    }
+    
+    public void establecerProducto(Producto otroProducto){
+        unProducto = otroProducto;
+    }
+    
     public ProductoBean getProductoBean() {
         return productoBean;
     }
@@ -133,5 +158,19 @@ public class ProductoFormBean implements Serializable{
 
     public void setCat(Categoria cat) {
         this.cat = cat;
+    }
+
+    /**
+     * @return the unProducto
+     */
+    public Producto getUnProducto() {
+        return unProducto;
+    }
+
+    /**
+     * @param unProducto the unProducto to set
+     */
+    public void setUnProducto(Producto unProducto) {
+        this.unProducto = unProducto;
     }
 }

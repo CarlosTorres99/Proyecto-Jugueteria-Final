@@ -1,4 +1,4 @@
-package aplicacion.modelo.dominio;
+    package aplicacion.modelo.dominio;
 // Generated 10-jun-2019 1:24:23 by Hibernate Tools 4.3.1
 
 
@@ -16,6 +16,8 @@ public class Producto  implements java.io.Serializable {
      private String descripcion;
      private Double precio;
      private Integer stock;
+     private Boolean estado;
+     private byte[] foto;
      private Set detalles = new HashSet(0);
 
     public Producto() {
@@ -26,13 +28,15 @@ public class Producto  implements java.io.Serializable {
         this.codProducto = codProducto;
         this.categorias = categorias;
     }
-    public Producto(int codProducto, Categoria categorias, String descripcion, Double precio, Integer stock, Set detalles) {
-       this.codProducto = codProducto;
-       this.categorias = categorias;
-       this.descripcion = descripcion;
-       this.precio = precio;
-       this.stock = stock;
-       this.detalles = detalles;
+
+    public Producto(int codProducto, Categoria categorias, String descripcion, Double precio, Integer stock, Boolean estado, byte[] foto) {
+        this.codProducto = codProducto;
+        this.categorias = categorias;
+        this.descripcion = descripcion;
+        this.precio = precio;
+        this.stock = stock;
+        this.estado = estado;
+        this.foto = foto;
     }
    
     public int getCodProducto() {
@@ -83,9 +87,21 @@ public class Producto  implements java.io.Serializable {
         this.stock = stock;
     }
 
+    public Boolean getEstado() {
+        return estado;
+    }
 
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
+    }
 
+    public byte[] getFoto() {
+        return foto;
+    }
 
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
+    }
 }
 
 

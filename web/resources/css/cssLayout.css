@@ -1,0 +1,76 @@
+
+#top {
+    position: relative;
+    background-color: #DF0101;
+    color: white;
+    padding: 5px;
+    margin: 0px 0px 10px 0px;
+}
+
+#bottom {
+    position: relative;
+    background-color: #FFBF00;
+    padding: 5px;
+    margin: 10px 0px 0px 0px;
+}
+
+#left {
+    float: left;
+    background-color: #0B2161;
+    color: white;
+    width: 450px;
+    margin: 30px 0px 0px 30px;
+}
+
+#right {
+    float: right;
+    background-color: #F5ECCE;
+    padding: 5px;
+    width: 150px;
+}
+
+.row {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    background: url("../images/cascanueces.jpg") no-repeat;
+    background-size: cover;
+    height: 650px;
+}
+
+.col-4 {
+    width: 45%;
+}
+
+.center_content {
+    position: absolute;
+    background-color: #F5ECCE;
+    padding: 5px;
+}
+/*Esto cambia el color del contenido*/
+.left_content {
+    background-color: #F5ECCE;
+    padding: 5px;
+    margin-left: 170px;
+}
+
+.right_content {
+    background-color: #F5ECCE;
+    padding: 5px;
+    margin: 0px 170px 0px 170px;
+}
+
+#top a:link, #top a:visited {
+  color: white;
+  font-weight : bold;
+  text-decoration: none;
+}
+
+#top a:link:hover, #top a:visited:hover  {
+  color: black;
+  font-weight : bold;
+  text-decoration : underline;
+}
+
+

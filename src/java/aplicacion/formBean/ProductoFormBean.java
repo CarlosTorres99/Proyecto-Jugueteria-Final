@@ -37,6 +37,7 @@ public class ProductoFormBean implements Serializable{
     private List<Categoria> categorias;
     private List<Producto>listadoProductos;
     private Producto unProducto;
+    private int num=10;
 
     /**
      * Creates a new instance of ProductoFormBean
@@ -49,13 +50,8 @@ public class ProductoFormBean implements Serializable{
     
     public void agregarProducto(){
         try{
-            /*for (int i=0;i<=obtenerListaProductos().size();i++){
-                if(i==obtenerListaProductos().size()){
-                    cod = (obtenerListaProductos().get(i).getCodProducto())+1;
-                }
-            }
-            
-        prod.setCodProducto(cod);*/
+        prod.setCodProducto(num);
+        setNum(num+1);
         productoBean.agregarProd(prod);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Producto Creado"));    
         }
@@ -72,8 +68,8 @@ public class ProductoFormBean implements Serializable{
     }
     
     public void eliminarProd(){
-        System.out.println("Eliminando");
-        productoBean.elminarProd(unProducto);
+        unProducto.setEstado(Boolean.FALSE);
+        productoBean.modificarProd(unProducto);
         FacesMessage msg = new FacesMessage("Producto Eliminado");
         FacesContext.getCurrentInstance().addMessage(null, msg);
         unProducto = new Producto();
@@ -172,5 +168,19 @@ public class ProductoFormBean implements Serializable{
      */
     public void setUnProducto(Producto unProducto) {
         this.unProducto = unProducto;
+    }
+
+    /**
+     * @return the num
+     */
+    public int getNum() {
+        return num;
+    }
+
+    /**
+     * @param num the num to set
+     */
+    public void setNum(int num) {
+        this.num = num;
     }
 }

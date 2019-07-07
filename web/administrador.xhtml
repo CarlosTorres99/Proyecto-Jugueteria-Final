@@ -15,6 +15,7 @@
                 <p:outputLabel value="#{loginFormBean.obtenerUsuario()}"/>
                 <p:commandButton id="btnCrearUsuario" value="Agregar Nuevo Usuario" oncomplete="PF('agregarUsuario').show()" update="dlgCrearUsuario"/>
                 <p:commandButton id="btnCrearProducto" value="Agregar Nuevo Producto" oncomplete="PF('agregarProducto').show()" update="dlgCrearProducto"/>
+                <p:commandButton id="btnCrearCategoria" value="Agregar Nueva Categoria" oncomplete="PF('agregarCategoria').show()" update="dlgCrearCategoria"/>
                 <p:commandLink id="btnCerrarSesion" value="Cerrar Sesion" process="@this" action="login"/>
             </p:panelGrid>            
         </h:form>
@@ -67,7 +68,23 @@
                 </p:column>
             </p:dataTable>
         </h:form>
-        
+        <h:form id="frmCategorias">
+            <p:dataTable id="dlCategorias" value="#{categoriaFormBean.obtenerCategorias()}" var="cat">
+                <p:column headerText="Id Categoria">
+                    <p:outputLabel value="#{cat.idcategoria}"/>
+                </p:column>
+                <p:column headerText="Descripción">
+                    <p:outputLabel value="#{cat.descripcion}"/>
+                </p:column>
+                <p:column headerText="Nombre">
+                    <p:outputLabel value="#{cat.nombre}"/>
+                </p:column>
+                <p:column headerText="Acciones">
+                    <p:commandButton id="btnEliminar" value="Eliminar" oncomplete="PF('eliminarCategoria').show()" actionListener="#{categoriaFormBean.establecerCategoria(cat)}" update="dlgDelCategoria"/>
+                    <p:commandButton id="btnModificar" value="Modificar" oncomplete="PF('modificarCategoria').show()" actionListener="#{categoriaFormBean.establecerCategoria(cat)}" update="dlgModCategoria"/>
+                </p:column>
+            </p:dataTable>
+        </h:form>
         <p:dialog id="dlgDelUsuario" header="Eliminacion de Usuario" widgetVar="eliminarUsuario"
                           resizable="false"
                           showEffect="explode" hideEffect="explode"
@@ -174,9 +191,6 @@
                     <p:growl id="mensajeAltaProducto" showDetail="false" showSummary="true" sticky="false" />
                     <h:form id="frmAltaProducto">
                         <p:panelGrid id="tblAltaProducto" columns="2" >
-                            <p:outputLabel for="txtCod" value="Codigo Producto"/>
-                            <p:inputNumber id="txtCod" value="#{productoFormBean.prod.codProducto}"
-                                           required="true" placeholder="No repetir el Código" size="30" decimalPlaces="0" maxValue="1000" minValue="1"/>
                             <p:outputLabel for="txtDescProducto" value="Descripción de Producto: " />
                             <p:inputText id="txtDescProducto"
                                          value="#{productoFormBean.prod.descripcion}"
@@ -266,6 +280,90 @@
                             <p:commandButton id="btnCerrarDelProducto"
                                              value="Cancelar"
                                              oncomplete="PF('eliminarProducto').hide()" />
+                        </p:panelGrid>
+                    </h:form>
+                </p:dialog>
+        <p:dialog id="dlgCrearCategoria" header="Alta Categoria" widgetVar="agregarCategoria"
+                          resizable="false"
+                          showEffect="explode" hideEffect="explode"
+                          modal="true">
+                    <p:growl id="mensajeAltaCategoria" showDetail="false" showSummary="true" sticky="false" />
+                    <h:form id="frmAltaCategoria">
+                        <p:panelGrid id="tblAltaCategoria" columns="2" >
+                            <p:outputLabel for="txtNombreCat" value="Nombre Categoria"/>
+                            <p:inputText id="txtNombreCat" value="#{categoriaFormBean.cat.nombre}"
+                                           required="true" placeholder="Escriba nombre de la Categoria" size="30"/>
+                            <p:outputLabel for="txtDescCat" value="Descripción de Categoria: " />
+                            <p:inputText id="txtDescCat"
+                                         value="#{categoriaFormBean.cat.descripcion}"
+                                         required="true" placeholder="Ingrese Descripción de la Categoria" size="30"/>
+                            <p:commandButton id="btnAgregarCategoria" value="Agregar"
+                                             actionListener="#{categoriaFormBean.agregarCategoria()}" 
+                                             update=":frmCategorias :mes" 
+                                             oncomplete="PF('agregarCategoria').hide()" >
+                                    <p:confirm header="Pedido de Confirmacion"
+                                               message="¿Confirma Agregar Categoria?"
+                                               icon="ui-icon-alert"/>
+                            </p:commandButton>
+                            <p:commandButton id="btnCerrarAltaCategoria"
+                                             value="Salir"
+                                             oncomplete="PF('agregarCategoria').hide()" />
+                        </p:panelGrid>
+                    </h:form>
+                </p:dialog>
+        <p:dialog id="dlgModCategoria" header="Modificación de Categoria" widgetVar="modificarCategoria"
+                          resizable="false"
+                          showEffect="explode" hideEffect="explode"
+                          modal="true">
+                    <p:growl id="mensajeModCategoria" showDetail="false" showSummary="true" sticky="false" />
+                    <h:form id="frmModCategoria">
+                        <p:panelGrid id="tblModCategoria" columns="2" >
+                            <p:outputLabel for="txtDescripcionCat" value="Descripción Categoria" />
+                            <p:inputText id="txtDescripcionCat"
+                                         value="#{categoriaFormBean.unaCategoria.descripcion}"
+                                         required="true"/>
+                            <p:outputLabel for="txtNombreCat" value="Nombre"/>
+                            <p:inputText id="txtNombreCat" 
+                                           value="#{categoriaFormBean.unaCategoria.nombre}"
+                                         required="true"/>           
+                            <p:commandButton id="btnModificarCategoria" value="Modificar"
+                                             actionListener="#{categoriaFormBean.modificarCategoria()}" 
+                                             update=":frmCategorias :mes" 
+                                             oncomplete="PF('modificarCategoria').hide()" >
+                                    <p:confirm header="Pedido de Confirmacion"
+                                               message="¿Confirma Modificación de Categoria?"
+                                               icon="ui-icon-alert"/>
+                            </p:commandButton>                            
+                            <p:commandButton id="btnCerrarModCategoria"
+                                             value="Salir"
+                                             oncomplete="PF('modificarCategoria').hide()" />
+                        </p:panelGrid>
+                    </h:form>
+                </p:dialog>
+        <p:dialog id="dlgDelCategoria" header="Eliminación de Categoria" widgetVar="eliminarCategoria"
+                          resizable="false"
+                          showEffect="explode" hideEffect="explode"
+                          modal="true">
+                    <p:growl id="mensajeDelCategoria" showDetail="false" showSummary="true" sticky="false" />
+                    <h:form id="frmDelCategoria">
+                        <p:panelGrid id="tblDelCategoria" columns="2" >
+                            <p:outputLabel for="txtDescripcionCategoria" value="Descripción Categoria" />
+                            <p:outputLabel id="txtDescripcionCategoria"
+                                           value="#{categoriaFormBean.unaCategoria.descripcion}"/>
+                            <p:outputLabel for="txtNombreCat" value="Nombre" />
+                            <p:outputLabel id="txtNombreCat" 
+                                           value="#{categoriaFormBean.unaCategoria.nombre}"/>    
+                            <p:commandButton id="btnDeleteCategoria" value="Eliminar"
+                                             actionListener="#{categoriaFormBean.eliminarCategoria()}" 
+                                             update=":frmCategorias :mes" 
+                                             oncomplete="PF('eliminarCategoria').hide()" >
+                                    <p:confirm header="Pedido de Confirmacion"
+                                               message="¿Confirma eliminación de Categoria?"
+                                               icon="ui-icon-alert"/>
+                            </p:commandButton>
+                            <p:commandButton id="btnCerrarDelCategoria"
+                                             value="Cancelar"
+                                             oncomplete="PF('eliminarCategoria').hide()" />
                         </p:panelGrid>
                     </h:form>
                 </p:dialog>

@@ -50,18 +50,23 @@ public class UsuarioTest {
         //us.getClientes().setDni(234);
         IUsuarioDAO usuarioDao = new UsuarioDaoImp();
         usuarioDao.agregar(us);*/
-        List<Categoria> listado = new ArrayList();
+        List<Producto> listado = new ArrayList();
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        Criteria criteria = session.createCriteria(Categoria.class);
+        Criteria criteria = session.createCriteria(Producto.class);
         listado = criteria.list();
         session.getTransaction().commit();
         session.close();
         
+        IProductoDAO productoDao = new ProductoDaoImp();
         Producto prod= new Producto();
-        prod.setCategorias(listado.get(0));
+        prod = listado.get(1);
+        prod.setEstado(Boolean.TRUE);
+        productoDao.modificar(prod);
+        
+        /*prod.setCategorias(listado.get(0));
         prod.setDescripcion("prueba");
         IProductoDAO productoDao = new ProductoDaoImp();
-        productoDao.agregar(prod);
+        productoDao.agregar(prod);*/
     }
 }

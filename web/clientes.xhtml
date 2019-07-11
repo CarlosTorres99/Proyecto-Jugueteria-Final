@@ -2,14 +2,84 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
-        <title>Jugueteria/Catalogo</title>
+        <title>Juguetería/Catálogo</title>
     </h:head>
     <h:body>
-        <h:form>
-            <p:outputLabel value="Pagina de Clientes"/>
+        <ui:composition template="./templates/templateClientes.xhtml">
+            <ui:define name="top4">
+        <p:growl id="msgs" showDetail="true"/>
+        <h:form id="frmInfoProducto">
+        <p:panelGrid columns="3">
+                    <p:outputLabel value="Nombre de Usuario:" style="font-size:16px; font-family:'Comic Sans MS','Times New Roman',sans-serif,cursive"/>
+                    <p:outputLabel value="#{loginFormBean.obtenerUsuario()}" style="font-size:18px; font-family:'Times New Roman',sans-serif,cursive"/>
+                    <p:commandLink id="btnCerrarSesionClientes" value="Cerrar Sesión" process="@this" action="login" style="font-size:18px; font-family:'Comic Sans MS','Times New Roman',sans-serif,cursive"/>
+        </p:panelGrid>
         </h:form>
+        <h:form id="frmCompraProductoPago">
+        <p:panelGrid columns="1">
+            <p:commandButton id="btnComprar" value="Comprar" action="#{detalleFormBean.comprar()}" style="font-family:'Times New Roman',sans-serif,cursive" />
+        </p:panelGrid>
+        </h:form>
+        </ui:define>
+            <ui:define name="content3">
+        <p:panel id="pnlProductos">
+            <h:form id="frmMuestraProductos" enctype="multipart/form-data">
+                <p:dataGrid var="prod" value="#{productoFormBean.obtenerListaProductos()}" columns="3" layout="grid" rows="12" paginator="true" id="prod">
+                    <f:facet name="header">
+                        Productos a la venta
+                    </f:facet>
+                    
+                    <p:panel header="#{prod.descripcion}" style="text-align: center">
+                        <p:panelGrid columns="1" style="width: 100%">
+                            <p:graphicImage value="#{productoFormBean.fotoProducto}" height="100px" width="100px">
+                                <f:param name="codProd" value="#{prod.codProducto}"/>
+                            </p:graphicImage>
+                            
+                            <h:outputText value="$#{prod.precio}"/>
+                            
+                            <p:commandLink oncomplete="PF('mostrarDetalles').show()" update=":frmMuestraProductos :detalles" title="Detalles" actionListener="#{detalleFormBean.establecerProducto(prod)}">
+                                <h:outputText value="Detalles" style="margin: 0 auto;"/>
+                                <f:setPropertyActionListener value="#{prod}" target="#{prod}"/>
+                            </p:commandLink>
+                        </p:panelGrid>
+                        
+                    </p:panel>
+                </p:dataGrid>
+            </h:form>
+        </p:panel>
+        <p:dialog id="detalles" header="Detalles" widgetVar="mostrarDetalles"
+                          resizable="false"
+                          showEffect="explode" hideEffect="explode"
+                          modal="true">
+                    <p:growl id="mensajeDetalles" showDetail="false" showSummary="true" sticky="false" />
+                    <h:form id="frmDlgDetalles">
+                        <p:panelGrid id="tblDlgDetalles" columns="2" >
+                            <p:outputLabel for="txtDescProducto" value="Descripción de Producto: " />
+                            <p:outputLabel id="txtDescProducto"
+                                           value="#{detalleFormBean.unProducto.descripcion}"/>
+                            <p:outputLabel for="txtPrecio" value="Precio: "/>
+                            <p:outputLabel id="txtPrecio" value="$#{detalleFormBean.unProducto.precio}"/>
+                            <p:outputLabel for="txtStock" value="Stock: " />
+                            <p:outputLabel id="txtStock" value="#{detalleFormBean.unProducto.stock}"/>
+                            <p:outputLabel id="txtIdCat" value="Categoria" />
+                            <p:outputLabel id="lblCategoriaMost" value="#{detalleFormBean.unProducto.categorias.nombre}"/>
+                            <p:commandButton id="btnAgregarCarrito" value="Agregar al carrito"
+                                             actionListener="#{detalleFormBean.agregarCarrito()}" 
+                                             update=":msgs"
+                                             oncomplete="PF('mostrarDetalles').hide()">
+                            </p:commandButton>
+                            <p:commandButton id="btnCerrarAgregarCarrito"
+                                             value="Salir"
+                                             oncomplete="PF('mostrarDetalles').hide()" />
+                        </p:panelGrid>
+                    </h:form>
+                </p:dialog>
+                </ui:define>
+        </ui:composition>
     </h:body>
 </html>
 

@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Factura</title>
+    </h:head>
+    <h:body>
+        <p:growl id="mensgeFinal" showDetail="true"/>
+        <h:form id="frmFactura" enctype="multipart/form-data">
+            <p:panelGrid id="pblFactura" columns="2">
+                <p:outputLabel id="lblFecha" value="Fecha: "/>
+                <p:outputLabel value="#{detalleFormBean.unaFactura.fecha}"/>
+                <p:outputLabel id="lblUsuario" value="Usuario: "/>
+                <p:outputLabel value="#{detalleFormBean.unaFactura.usuarios.nombreUsuario}"/>
+                <p:outputLabel id="lblDniUsuario" value="DNI: "/>
+                <p:outputLabel value="#{detalleFormBean.unaFactura.usuarios.clientes.dni}"/>
+                <p:outputLabel id="lblModoPagoja" value="Modo de Pago: "/>
+                <p:outputLabel value="#{detalleFormBean.unaFactura.modopago.descripcion}"/>
+                <p:outputLabel id="lblCuotas" value="Cantidad de cuotas: "/>
+                <p:outputLabel value="#{detalleFormBean.unaFactura.modopago.cuotas}"/>
+                <p:outputLabel id="lblTotal" value="Total Compra: "/>
+                <p:outputLabel value="$#{detalleFormBean.obtenerTotal()}"/>
+                <p:commandButton value="imprimir" onclick="print()"/>
+            </p:panelGrid>
+            <p:panelGrid id="pnlDetalleFactura" columns="5">
+                <p:dataTable id="tblDetalleFactura" value="#{detalleFormBean.listadoDetalleCompra}" var="cadaDet" emptyMessage="No hay productos por comprar">
+                    <p:column headerText="Producto">
+                        <p:outputLabel value="#{cadaDet.productos.descripcion}"/>
+                    </p:column>
+                    <p:column headerText="Cantidad">
+                        <p:outputLabel value="#{cadaDet.cantidad}"/>
+                    </p:column>
+                    <p:column headerText="Total Producto">
+                        <p:outputLabel value="#{cadaDet.precioProdCant}"/>
+                    </p:column>
+                </p:dataTable>
+            </p:panelGrid>
+        </h:form>
+    </h:body>
+</html>
+

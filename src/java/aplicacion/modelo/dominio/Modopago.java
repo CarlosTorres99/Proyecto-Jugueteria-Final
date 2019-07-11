@@ -11,7 +11,7 @@ import java.util.Set;
 public class Modopago  implements java.io.Serializable {
 
 
-     private int idmodoPago;
+     private Integer idmodoPago;
      private String descripcion;
      private Integer cuotas;
      private Double interes;
@@ -21,10 +21,10 @@ public class Modopago  implements java.io.Serializable {
     }
 
 	
-    public Modopago(int idmodoPago) {
+    public Modopago(Integer idmodoPago) {
         this.idmodoPago = idmodoPago;
     }
-    public Modopago(int idmodoPago, String descripcion, Integer cuotas, Double interes, Set facturas) {
+    public Modopago(Integer idmodoPago, String descripcion, Integer cuotas, Double interes, Set facturas) {
        this.idmodoPago = idmodoPago;
        this.descripcion = descripcion;
        this.cuotas = cuotas;
@@ -32,11 +32,11 @@ public class Modopago  implements java.io.Serializable {
        this.facturas = facturas;
     }
    
-    public int getIdmodoPago() {
+    public Integer getIdmodoPago() {
         return this.idmodoPago;
     }
     
-    public void setIdmodoPago(int idmodoPago) {
+    public void setIdmodoPago(Integer idmodoPago) {
         this.idmodoPago = idmodoPago;
     }
     public String getDescripcion() {
@@ -67,10 +67,19 @@ public class Modopago  implements java.io.Serializable {
     public void setFacturas(Set facturas) {
         this.facturas = facturas;
     }
-
-
-
-
+        @Override
+    public boolean equals(Object other){
+        return (other instanceof Modopago) && (idmodoPago != null)? idmodoPago.equals(((Modopago)other).idmodoPago):(other == this);
+    }
+    @Override
+    public int hashCode(){
+        return (idmodoPago != null)? (this.getClass().hashCode() + idmodoPago.hashCode()):super.hashCode();
+    }
+    @Override
+    public String toString(){
+        return String.format("Modopago: [%s]", descripcion);
+    }
+    
 }
 
 

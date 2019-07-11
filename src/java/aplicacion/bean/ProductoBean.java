@@ -30,20 +30,16 @@ public class ProductoBean implements Serializable{
     }
     
     public void agregarProd(Producto prod){
-        
         getProductoDao().agregar(prod);
-        System.out.println("Estoy en el productoBean");
     }
     public void elminarProd(Producto prod){
-        System.out.println("EliminandoBean");
         getProductoDao().eliminar(prod);
-        System.out.println("Eliminado xD");
     }
     public void modificarProd(Producto prod){
         getProductoDao().modificar(prod);
     }
-    public void consultar(Integer codProd){
-        getProductoDao().consultar(codProd);
+    public Producto consultar(Integer codProd){
+        return getProductoDao().consultar(codProd);
     }
     public List<Producto> obtenerListado(){
         return getProductoDao().obtenerListadoProductos();

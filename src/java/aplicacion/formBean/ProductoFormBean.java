@@ -9,6 +9,8 @@ import aplicacion.bean.CategoriaBean;
 import aplicacion.bean.ProductoBean;
 import aplicacion.modelo.dominio.Categoria;
 import aplicacion.modelo.dominio.Producto;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +20,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.PhaseId;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -37,7 +43,8 @@ public class ProductoFormBean implements Serializable{
     private List<Categoria> categorias;
     private List<Producto>listadoProductos;
     private Producto unProducto;
-    private int num=10;
+    private int num=13;
+    private transient UploadedFile archivo = null;
 
     /**
      * Creates a new instance of ProductoFormBean
@@ -47,11 +54,19 @@ public class ProductoFormBean implements Serializable{
         categorias = new ArrayList();
     }
     
-    
     public void agregarProducto(){
+        if(getArchivo()!=null){
+            byte[] contents = getArchivo().getContents();
+            getProd().setFoto(contents);
+        }
+        else{
+            getProd().setFoto(null);
+        }
+
         try{
         prod.setCodProducto(num);
         setNum(num+1);
+        prod.setEstado(Boolean.TRUE);
         productoBean.agregarProd(prod);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Producto Creado"));    
         }
@@ -61,7 +76,7 @@ public class ProductoFormBean implements Serializable{
         prod = new Producto();
     }
     public List<Producto> obtenerListaProductos(){
-        return listadoProductos = productoBean.obtenerListado();
+        return productoBean.obtenerListado();
     }
     public List<Categoria> obtenerCategorias(){
         return getCategoriaBean().obtenerListado();
@@ -84,6 +99,23 @@ public class ProductoFormBean implements Serializable{
     
     public void establecerProducto(Producto otroProducto){
         unProducto = otroProducto;
+    }
+    
+    public StreamedContent getFotoProducto() throws IOException{
+        FacesContext context = FacesContext.getCurrentInstance();
+        if(context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE){
+            return new DefaultStreamedContent();
+        }
+        else{
+            String codigo = context.getExternalContext().getRequestParameterMap().get("codProd");
+            Producto producto = productoBean.consultar(Integer.parseInt(codigo));
+            if(producto.getFoto()==null){
+                return null;
+            }
+            else{
+                return new DefaultStreamedContent(new ByteArrayInputStream(producto.getFoto()));
+            }
+        }
     }
     
     public ProductoBean getProductoBean() {
@@ -183,4 +215,13 @@ public class ProductoFormBean implements Serializable{
     public void setNum(int num) {
         this.num = num;
     }
+
+    public UploadedFile getArchivo() {
+        return archivo;
+    }
+
+    public void setArchivo(UploadedFile archivo) {
+        this.archivo = archivo;
+    }
+    
 }

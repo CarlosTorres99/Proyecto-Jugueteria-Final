@@ -49,21 +49,19 @@ public class UsuarioTest {
         us.setClientes(new Cliente(223));
         //us.getClientes().setDni(234);
         IUsuarioDAO usuarioDao = new UsuarioDaoImp();
-        usuarioDao.agregar(us);*/
+        usuarioDao.agregar(us);
         List<Producto> listado = new ArrayList();
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         Criteria criteria = session.createCriteria(Producto.class);
         listado = criteria.list();
         session.getTransaction().commit();
-        session.close();
+        session.close();*/
         
         IProductoDAO productoDao = new ProductoDaoImp();
         Producto prod= new Producto();
-        prod = listado.get(1);
-        prod.setEstado(Boolean.TRUE);
-        productoDao.modificar(prod);
-        
+        prod=productoDao.consultar(2);
+        System.out.println(prod.getDescripcion());
         /*prod.setCategorias(listado.get(0));
         prod.setDescripcion("prueba");
         IProductoDAO productoDao = new ProductoDaoImp();

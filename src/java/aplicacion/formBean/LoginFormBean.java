@@ -6,7 +6,6 @@
 package aplicacion.formBean;
 
 import aplicacion.bean.LoginBean;
-import aplicacion.modelo.dominio.Cliente;
 import aplicacion.modelo.dominio.Usuario;
 import java.io.Serializable;
 import javax.faces.application.FacesMessage;

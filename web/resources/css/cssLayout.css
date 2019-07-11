@@ -1,10 +1,32 @@
-
 #top {
-    position: relative;
-    background-color: #DF0101;
+    position: static;
+    background-color: #0B0B61;
     color: white;
-    padding: 5px;
-    margin: 0px 0px 10px 0px;
+    padding: 0px;
+    margin: 50px 0px 0px 320px;
+}
+#top2 {
+    position: static;
+    background-color: #B40404;
+    color: white;
+    padding: 20px;
+    margin: 0px 0px 0px 0px;
+}
+
+#top3 {
+    position: static;
+    background-color: #B40404;
+    color: white;
+    padding: 10px;
+    margin: 50px 0px 0px 488px;
+}
+#top4 {
+    position: static;
+    background: url("../images/fondo_circo.jpg") no-repeat;
+    background-size: 1400px;
+    color: white;
+    padding: 20px;
+    margin: 0px 0px 0px 0px;
 }
 
 #bottom {
@@ -33,7 +55,6 @@
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    margin-bottom: 20px;
     background: url("../images/cascanueces.jpg") no-repeat;
     background-size: cover;
     height: 650px;
@@ -46,9 +67,44 @@
 .center_content {
     position: absolute;
     background-color: #F5ECCE;
-    padding: 5px;
+    padding: 0px;
+    height: 300px;
+    margin: 30px 0px 0px 30px;
 }
-/*Esto cambia el color del contenido*/
+.row2 {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    background: url("../images/dino_1920_0.jpg") no-repeat;
+    background-size: cover;
+    height: 700px;
+}
+
+.row3 {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    background: url("../images/fondo_circo.jpg") no-repeat;
+    background-size: cover;
+    height: 950px;
+}
+
+.center_content2 {
+    position: absolute;
+    background-color: #F5ECCE;
+    height: 200px;
+    margin: 200px 0px 0px 53px;
+}
+
+.center_content3 {
+    position: absolute;
+    background-color: #F5ECCE;
+    padding: 0px;
+    height: 680px;
+    width:1334px;
+    margin: 0px 0px 0px 00px;
+}
+
 .left_content {
     background-color: #F5ECCE;
     padding: 5px;
@@ -67,10 +123,8 @@
   text-decoration: none;
 }
 
-#top a:link:hover, #top a:visited:hover  {
+#top a:link:hover, #top a:visited:hover {
   color: black;
   font-weight : bold;
   text-decoration : underline;
 }
-
-

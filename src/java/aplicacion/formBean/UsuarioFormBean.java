@@ -73,6 +73,23 @@ public class UsuarioFormBean implements Serializable{
         us = new Usuario();
         return resultado;
     }
+    public String agregarUsAdmin(){
+        String resultado=null;
+        try{
+        cod = 1 + numero.nextInt(1000);
+        us.setClientes(new Cliente(dni));
+        us.setEstado(true);
+        us.setCodigo(cod);
+        usuarioBean.agregarUs(us);
+        resultado = "login?faces-redirect=true";
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Usuario Creado"));
+        }
+        catch (Exception e){
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Fallo al Crear Usuario"));
+        }
+        us = new Usuario();
+        return resultado;
+    }
     
     public List<Usuario> obtenerListaUsuariosActivos(){
         return listadoUsuarios = usuarioBean.obtenerListado();

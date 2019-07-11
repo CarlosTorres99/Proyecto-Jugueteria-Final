@@ -9,18 +9,18 @@
     </h:head>
     <h:body>
         
-        <ui:composition template="./templates/newTemplate.xhtml">
+        <ui:composition template="./templates/templateLogin.xhtml">
             <ui:define name="left">
-        <p:panel header="JUGUETERIA BOOBY WONKA"  footer="Programación Visual 2019">
+        <p:panel header="Juguetería Booby Wonka"  footer="Programación Visual 2019" style="text-align: center; font-family:'Times New Roman',sans-serif,cursive; font-size: 17px">
             <h:form id="login">
                 <p:growl id="mesage" showDetail="false" sticky="false"/>
                 <h:panelGrid columns="2" cellpadding="5">
-                    <p:outputLabel for="nombreUsuario" value="Usuario: "/>
+                    <p:outputLabel for="nombreUsuario" value="Usuario: " style="font-family:'Comic Sans MS','Times New Roman',sans-serif,cursive; font-size: 15px"/>
                     <p:inputText id="nombreUsuario" required="true" value="#{loginFormBean.nombreUs}" placeholder="Ingresar nombre de usuario" requiredMessage="Debe Ingresar su Nombre de Usuario" size="30"/>
-                    <p:outputLabel for="passwUsuario" value="Contraseña: "/>
+                    <p:outputLabel for="passwUsuario" value="Contraseña: " style="font-family:'Comic Sans MS','Times New Roman',sans-serif,cursive; font-size: 15px"/>
                     <p:password id="passwUsuario" required="true" value="#{loginFormBean.passwUs}" placeholder="Ingresa contraseña" requiredMessage="Debe Ingresar su contraseña" size="30"/>
-                    <p:commandButton id="botonValdar" value="Ingresar" update="login" action="#{loginFormBean.validarUsuario()}"/>
-                    <p:commandLink value="Crear nuevo usuario" process="@this" action="nuevoUsuario"/>
+                    <p:commandButton id="botonValdar" value="Ingresar" update="login" action="#{loginFormBean.validarUsuario()}" style="font-family:'Times New Roman',sans-serif,cursive"/>
+                    <p:commandLink id="clNewUser" value="Crear nuevo usuario" process="@this" action="nuevoUsuario" style="font-family:'Times New Roman',sans-serif,cursive"/>
                 </h:panelGrid>
             </h:form>
         </p:panel>

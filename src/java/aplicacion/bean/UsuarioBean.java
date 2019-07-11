@@ -46,4 +46,13 @@ public class UsuarioBean implements Serializable{
     public List<Usuario> obtenerListado(){
         return usuarioDao.obtenerListaUsuariosActivos();
     }
+
+    public IUsuarioDAO getUsuarioDao() {
+        return usuarioDao;
+    }
+
+    public void setUsuarioDao(IUsuarioDAO usuarioDao) {
+        this.usuarioDao = usuarioDao;
+    }
+    
 }
